@@ -72,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         lJson.enqueue(new Callback<Root>() {
             @Override
             public void onResponse(Call<Root> call, final Response<Root> response) {
-                if (response.body() != null ) {
+
+                if (response.body() != null && response.body().getPhotos()!=null) {
                     if (response.body().getPhotos().getTotal().equals("0")) {
                         Log.w(TAG, "Data Not found: ");
                         Toast.makeText(getApplicationContext(), "data not found",Toast.LENGTH_SHORT).show();
@@ -109,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                             }
                         });
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(),"Something went wrong:"+response.body().getStat()+" ",Toast.LENGTH_SHORT).show();
                 }
             }
 
